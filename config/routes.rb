@@ -10,5 +10,10 @@ Rails.application.routes.draw do
   # patch "/photos/:id" => "photos#update"
   # delete "/photos/:id" => "photos#destroy"
 
+  get "/signup" => "user#new"
   post "/users" => "users#create"
+
+  get "/login" => "sessions#new"
+  post "/sessions" => "sessions#create"
+  get "/logout" => "sessions#destroy"
 end
