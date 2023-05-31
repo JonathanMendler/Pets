@@ -2,5 +2,6 @@
 <% @pets.each do |pet| %>
   <h2><%= pet.name %></h2>
   <p>Breed: <%= pet.breed %></p>
-  <p>Image: <%= pet.image %></p>
+  <p>Image: <% pet.image %></p>
+  <img src="<%= pet.image %>" width="200" />
 <% end %>

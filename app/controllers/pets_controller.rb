@@ -15,12 +15,17 @@ class PetsController < ApplicationController
   end
 
   def create
-    @pet = Pet.create(
-      name: params[:pet][:name]
-      breed: params[:pet][:breed]
-      image: params[:pet][:image]
+    @pet = Pet.new(
+      name: params[:pet][:name],
+      breed: params[:pet][:breed],
+      image: params[:pet][:image],
     )
-    redirect to "/pets"
+
+    if @pet.save
+      redirect to @pet
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def edit
@@ -31,9 +36,9 @@ class PetsController < ApplicationController
   def update
     @pet = Pet.find_by(id: params[:id])
     @pet.update(
-      name: params[:pet][:name]
-      breed: params[:pet][:breed]
-      image: params[:pet][:image]
+      name: params[:pet][:name],
+      breed: params[:pet][:breed],
+      image: params[:pet][:image],
     )
     redirect to "/pets"
   end
@@ -42,5 +47,11 @@ class PetsController < ApplicationController
     @pet = Pet.find_by(id: params[:id])
     @pet.destroy
     redirect to "/pets", status: :see_other
+  end
+
+  private
+
+  def pet_params
+    params.require(:pet).permit(:name, :breed, :image)
   end
 end
